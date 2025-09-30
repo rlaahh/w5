@@ -65,7 +65,7 @@ cats.forEach((cat, i) => {
 
     cat.addEventListener("mousedown", () => {
         cat.src = catsData[i].pressFrames[pressIndex];
-        document.body.style.backgroundColor = bgColors[colorIndex]; // background-color만 변경
+        document.body.style.backgroundColor = bgColors[colorIndex]; 
     });
 
     cat.addEventListener("mouseup", () => {
