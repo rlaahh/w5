@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>춤추는 고양이</title>
+    <style>
+        body {
+            cursor: pointer;
+            margin: 0;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            transition: background-color 0.1s ease;
+            background-image: url('club.jpg');
+            background-size: cover;
+            background-color: rgba(255, 0, 0, 0); /* 조명 색 */
+            background-blend-mode: hard-light;
+            background-position: center;
+        }
+        .cat {display: block;
+            max-width: 30%;
+            height: auto;
+            margin: -40px;}
+
+        .catworld{display: flex;               
+            justify-content: center;      
+            align-items: center;        
+            position: absolute;        
+            bottom: 17%;        
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="catworld">
+<img class="cat" src="cat3.png" />
+<img class="cat" src="cat2.png" />
+<img class="cat" src="cat1.png" />
+</div>
+<audio id="music" src="gokitty.mp3" loop autoplay preload="autoplay"></audio>
+
+<script>
+let catsData = [
+    { original: "cat3.png", pressFrames: ["cat3left.png", "cat3right.png"] },
+    { original: "cat2.png", pressFrames: ["cat2left.png", "cat2right.png"] },
+    { original: "cat1.png", pressFrames: ["cat1front.png", "cat1back.png"] }
+];
+
+let bgColors = [
+    "rgba(251, 255, 0, 1)",
+    "rgba(0, 255, 247, 1)",
+    "rgba(255, 0, 0, 1)",
+    "rgba(0, 255, 0, 1)",
+    "rgba(0, 0, 255, 1)",
+    ];
+let colorIndex = 0;
+
+let cats = document.querySelectorAll(".cat");
+
+cats.forEach((cat, i) => {
+    let pressIndex = 0;
+
+    cat.addEventListener("mousedown", () => {
+        cat.src = catsData[i].pressFrames[pressIndex];
+        document.body.style.backgroundColor = bgColors[colorIndex]; // background-color만 변경
+    });
+
+    cat.addEventListener("mouseup", () => {
+        cat.src = catsData[i].original;
+        document.body.style.backgroundColor = "rgba(0,0,0,0)"; // 원래 필터 제거
+        pressIndex = (pressIndex + 1) % catsData[i].pressFrames.length;
+        colorIndex = (colorIndex + 1) % bgColors.length;
+    });
+});
+
+let music = document.getElementById("music");
+document.body.addEventListener("click", () => {
+    music.play();
+});
+</script>
+
+</body>
+</html>
